@@ -1,0 +1,25 @@
+#include <stdarg.h>
+#include <stdio.h>
+float average(int n_values,...);
+
+// 可变参数
+int main(void){
+    printf("%f\n",average(5,1,2,3,4,5));
+    printf("%f\n",average(7,1,2,3,4,5,6,7));
+    return 0;
+}
+
+float average(int n_values,...){
+    va_list args; // 用于访问参数列表未确定部分
+    int count;
+    float sum = 0;
+
+    va_start(args,n_values); // 准备访问可变参数
+
+    for(count=0;count<n_values;count+=1){
+        sum += va_arg(args,int); // 依次取可变参数的值，n_values表示可变参数的个数
+    }
+
+    va_end(args); // 完成可变参数处理
+    return sum/n_values;
+}
